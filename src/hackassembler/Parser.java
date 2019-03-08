@@ -38,6 +38,19 @@ public class Parser {
         return rawLine.split("//")[0].trim().replaceAll(" ", "");
     }
 
+    private Command parseCommandType(String cleanLine) {
+        char firstChar = cleanLine.charAt(0);
+        if (firstChar == '@') {
+            return Command.A_COMMAND;
+        } else if ("01-!AMD".indexOf(firstChar) != -1) {
+            return Command.C_COMMAND;
+        } else if (firstChar == '(') {
+            return Command.L_COMMAND;
+        } else {
+            return Command.NO_COMMAND;
+        }
+    }
+
     public static void main(String[] args) {
 
         Parser s = new Parser("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\test.txt");
