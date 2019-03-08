@@ -1,3 +1,5 @@
+package hackassembler;
+
 import java.util.HashMap;
 
 public class CInstructionMapper {

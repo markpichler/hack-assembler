@@ -1,3 +1,5 @@
+package hackassembler;
+
 public enum Command {
     A_COMMAND,
     C_COMMAND,
