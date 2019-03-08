@@ -52,7 +52,6 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-
         Parser s = new Parser("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\test.txt");
         s.advance();
         System.out.println(s.cleanLine);
