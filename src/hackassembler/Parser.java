@@ -39,6 +39,12 @@ public class Parser {
         if (hasMoreCommands()) {
             rawLine = inputFile.nextLine();
             cleanLine = cleanLine(rawLine);
+            parse();
+            switch (commandType) {
+                case A_COMMAND:
+                case C_COMMAND:
+                    lineNumber++;
+            }
         }
     }
 
@@ -81,7 +87,6 @@ public class Parser {
             parseDest();
             parseComp();
             parseJump();
-            cleanLine = null;
         }
     }
 
@@ -93,15 +98,17 @@ public class Parser {
     }
 
     private void parseCommandType() {
-        char firstChar = cleanLine.charAt(0);
-        if (firstChar == '@') {
-            commandType = Command.A_COMMAND;
-        } else if ("01-!AMD".indexOf(firstChar) != -1) {
-            commandType = Command.C_COMMAND;
-        } else if (firstChar == '(') {
-            commandType = Command.L_COMMAND;
-        } else {
+        if (cleanLine == null || cleanLine.length() == 0) {
             commandType = Command.NO_COMMAND;
+        } else {
+            char firstChar = cleanLine.charAt(0);
+            if (firstChar == '@') {
+                commandType = Command.A_COMMAND;
+            } else if ("01-!AMD".indexOf(firstChar) != -1) {
+                commandType = Command.C_COMMAND;
+            } else if (firstChar == '(') {
+                commandType = Command.L_COMMAND;
+            }
         }
     }
 
@@ -143,7 +150,4 @@ public class Parser {
         }
     }
 
-    public static void main(String[] args) {
-
-    }
 }
