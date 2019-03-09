@@ -20,15 +20,26 @@ public class Parser {
         try {
             inputFile = new Scanner(new File(fileName));
         } catch (FileNotFoundException e) {
-            // Turn to helper method.
+            // TODO Turn to helper method.
             System.err.println("Error opening file " + fileName);
             System.exit(0);
         }
     }
 
+    public boolean hasMoreCommands() {
+        if (inputFile.hasNextLine()) {
+            return true;
+        } else {
+            inputFile.close();
+            return false;
+        }
+    }
+
     public void advance() {
-        rawLine = inputFile.nextLine();
-        cleanLine = cleanLine(rawLine);
+        if (hasMoreCommands()) {
+            rawLine = inputFile.nextLine();
+            cleanLine = cleanLine(rawLine);
+        }
     }
 
     private String cleanLine(String rawLine) {
