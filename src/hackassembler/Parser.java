@@ -49,22 +49,21 @@ public class Parser {
         return rawLine.split("//")[0].trim().replaceAll(" ", "");
     }
 
-    private Command parseCommandType(String cleanLine) {
+    private void parseCommandType(String cleanLine) {
         char firstChar = cleanLine.charAt(0);
         if (firstChar == '@') {
-            return Command.A_COMMAND;
+            commandType = Command.A_COMMAND;
         } else if ("01-!AMD".indexOf(firstChar) != -1) {
-            return Command.C_COMMAND;
+            commandType = Command.C_COMMAND;
         } else if (firstChar == '(') {
-            return Command.L_COMMAND;
+            commandType = Command.L_COMMAND;
         } else {
-            return Command.NO_COMMAND;
+            commandType = Command.NO_COMMAND;
         }
     }
 
     private void parseSymbol() {
         if (cleanLine != null) {
-            commandType = parseCommandType(cleanLine);
             switch (commandType) {
                 case A_COMMAND:
                     symbol =  cleanLine.substring(1);
@@ -74,6 +73,16 @@ public class Parser {
                     symbol = cleanLine.substring(1, cleanLine.length() - 1);
                     cleanLine = null;
                     break;
+            }
+        }
+    }
+
+    private void parseDest() {
+        if (cleanLine != null && commandType == Command.C_COMMAND) {
+            if (cleanLine.indexOf("=") != -1) {
+                destMnenomic = cleanLine.split("=")[0];
+            } else {
+                destMnenomic = null;
             }
         }
     }
