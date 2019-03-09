@@ -8,10 +8,10 @@ public class Parser {
 
     private String cleanLine;
     private Command commandType;
-    private String compMnenomic;
-    private String destMnenomic;
+    private String compMnemonic;
+    private String destMnemonic;
     private Scanner inputFile;
-    private String jumpMnenomic;
+    private String jumpMnemonic;
     private int lineNumber;
     private String rawLine;
     private String symbol;
@@ -40,6 +40,38 @@ public class Parser {
             rawLine = inputFile.nextLine();
             cleanLine = cleanLine(rawLine);
         }
+    }
+
+    public Command getCommandType() {
+        return commandType;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getDestMnemonic() {
+        return destMnemonic;
+    }
+
+    public String getCompMnenomic() {
+        return compMnemonic;
+    }
+
+    public String getjumpMnemonic() {
+        return jumpMnemonic;
+    }
+
+    public String getRawLine() {
+        return rawLine;
+    }
+
+    public String getCleanLine() {
+        return cleanLine;
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
     }
 
     private void parse() {
@@ -89,7 +121,7 @@ public class Parser {
     private void parseDest() {
         if (commandType == Command.C_COMMAND) {
             int index = cleanLine.indexOf("=");
-            destMnenomic = index != -1 ? cleanLine.split("=")[0] : null;
+            destMnemonic = index != -1 ? cleanLine.split("=")[0] : null;
 
         }
     }
@@ -97,9 +129,9 @@ public class Parser {
     private void parseComp() {
         if (commandType == Command.C_COMMAND) {
             if (cleanLine.indexOf("=") != -1) {
-                compMnenomic = cleanLine.split("(.+=)|;")[1];
+                compMnemonic = cleanLine.split("(.+=)|;")[1];
             } else {
-                compMnenomic = cleanLine.split("(.+=)|;")[0];
+                compMnemonic = cleanLine.split("(.+=)|;")[0];
             }
         }
     }
@@ -107,7 +139,7 @@ public class Parser {
     private void parseJump() {
         if (commandType == Command.C_COMMAND) {
             int index = cleanLine.indexOf(";");
-            jumpMnenomic = index != -1 ? cleanLine.substring(index) : null;
+            jumpMnemonic = index != -1 ? cleanLine.substring(index) : null;
         }
     }
 
