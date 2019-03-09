@@ -64,15 +64,16 @@ public class Parser {
 
     private void parseSymbol() {
         if (cleanLine != null) {
-            char firstChar = cleanLine.charAt(0);
-            if (firstChar == '@') {
-                symbol =  cleanLine.substring(1);
-                commandType = Command.A_COMMAND;
-                cleanLine = null;
-            } else if (firstChar == '(') {
-                symbol = cleanLine.substring(1, cleanLine.length() - 1);
-                commandType =  Command.L_COMMAND;
-                cleanLine = null;
+            commandType = parseCommandType(cleanLine);
+            switch (commandType) {
+                case A_COMMAND:
+                    symbol =  cleanLine.substring(1);
+                    cleanLine = null;
+                    break;
+                case L_COMMAND:
+                    symbol = cleanLine.substring(1, cleanLine.length() - 1);
+                    cleanLine = null;
+                    break;
             }
         }
     }
