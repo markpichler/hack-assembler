@@ -79,11 +79,9 @@ public class Parser {
 
     private void parseDest() {
         if (cleanLine != null && commandType == Command.C_COMMAND) {
-            if (cleanLine.indexOf("=") != -1) {
-                destMnenomic = cleanLine.split("=")[0];
-            } else {
-                destMnenomic = null;
-            }
+            int index = cleanLine.indexOf("=");
+            destMnenomic = index != -1 ? cleanLine.split("=")[0] : null;
+
         }
     }
 
@@ -94,6 +92,13 @@ public class Parser {
             } else {
                 compMnenomic = cleanLine.split("(.+=)|;")[0];
             }
+        }
+    }
+
+    private void parseJump() {
+        if (cleanLine != null && commandType == Command.C_COMMAND) {
+            int index = cleanLine.indexOf(";");
+            jumpMnenomic = index != -1 ? cleanLine.substring(index) : null;
         }
     }
 
