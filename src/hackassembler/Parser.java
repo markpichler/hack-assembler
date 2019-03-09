@@ -62,6 +62,21 @@ public class Parser {
         }
     }
 
+    private void parseSymbol() {
+        if (cleanLine != null) {
+            char firstChar = cleanLine.charAt(0);
+            if (firstChar == '@') {
+                symbol =  cleanLine.substring(1);
+                commandType = Command.A_COMMAND;
+                cleanLine = null;
+            } else if (firstChar == '(') {
+                symbol = cleanLine.substring(1, cleanLine.length() - 1);
+                commandType =  Command.L_COMMAND;
+                cleanLine = null;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Parser s = new Parser("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\test.txt");
         s.advance();
