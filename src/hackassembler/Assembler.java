@@ -8,10 +8,12 @@ public class Assembler {
 
     public static void main(String[] args) {
         Parser test = new Parser("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\test.txt");
-        test.advance();
-        System.out.println(test.getCleanLine());
-        test.advance();
-        System.out.println(test.getCleanLine());
+        while (test.hasMoreCommands()) {
+            test.advance();
+            System.out.println(test.getCleanLine() + test.getCommandType());
+
+        }
+        System.out.println(test.getLineNumber());
     }
 
 }

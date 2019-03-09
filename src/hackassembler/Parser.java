@@ -81,8 +81,8 @@ public class Parser {
     }
 
     private void parse() {
-        if (cleanLine != null) {
-            parseCommandType();
+        parseCommandType();
+        if (commandType != Command.NO_COMMAND) {
             parseSymbol();
             parseDest();
             parseComp();
