@@ -87,13 +87,17 @@ public class Parser {
         }
     }
 
+    private void parseComp() {
+        if (cleanLine != null && commandType == Command.C_COMMAND) {
+            if (cleanLine.indexOf("=") != -1) {
+                compMnenomic = cleanLine.split("(.+=)|;")[1];
+            } else {
+                compMnenomic = cleanLine.split("(.+=)|;")[0];
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        Parser s = new Parser("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\test.txt");
-        s.advance();
-        System.out.println(s.cleanLine);
-        s.advance();
-        System.out.println(s.cleanLine);
-        s.advance();
-        System.out.println(s.cleanLine);
+
     }
 }
