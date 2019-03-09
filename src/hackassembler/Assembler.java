@@ -2,18 +2,31 @@ package hackassembler;
 
 public class Assembler {
 
+    private Parser parser;
+    private SymbolTable symbolTable;
+
+    public Assembler() {
+        symbolTable = new SymbolTable();
+    }
+
     private String decimalToBinary(int number) {
         return Integer.toBinaryString(number);
     }
 
-    public static void main(String[] args) {
-        Parser test = new Parser("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\test.txt");
-        while (test.hasMoreCommands()) {
-            test.advance();
-            System.out.println(test.getCleanLine() + test.getCommandType());
-
+    private void firstPass(String assemblyFileName) {
+        parser = new Parser(assemblyFileName);
+        while (parser.hasMoreCommands()) {
+            parser.advance();
+            if (parser.getCommandType() == Command.L_COMMAND) {
+                symbolTable.addEntry(parser.getSymbol(), parser.getLineNumber() + 1);
+            }
         }
-        System.out.println(test.getLineNumber());
+    }
+
+    public static void main(String[] args) {
+        Assembler test = new Assembler();
+        test.firstPass("C:\\Users\\Mark\\IdeaProjects\\Hack_Assembler\\src\\hackassembler\\Add1ToN.asm");
+
     }
 
 }

@@ -1,4 +1,5 @@
 /out/
 /.idea/
 /src/hackassembler/test.txt
+/src/hackassembler/*.asm
 Hack_Assembler.iml

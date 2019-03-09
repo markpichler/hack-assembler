@@ -17,6 +17,7 @@ public class Parser {
     private String symbol;
 
     public Parser(String fileName) {
+        lineNumber = -1;
         try {
             inputFile = new Scanner(new File(fileName));
         } catch (FileNotFoundException e) {
@@ -39,7 +40,7 @@ public class Parser {
         if (hasMoreCommands()) {
             rawLine = inputFile.nextLine();
             cleanLine = cleanLine(rawLine);
-            parse();
+            parseCommandType();
             switch (commandType) {
                 case A_COMMAND:
                 case C_COMMAND:
@@ -81,7 +82,6 @@ public class Parser {
     }
 
     private void parse() {
-        parseCommandType();
         if (commandType != Command.NO_COMMAND) {
             parseSymbol();
             parseDest();
