@@ -42,6 +42,17 @@ public class Parser {
         }
     }
 
+    private void parse() {
+        if (cleanLine != null) {
+            parseCommandType();
+            parseSymbol();
+            parseDest();
+            parseComp();
+            parseJump();
+            cleanLine = null;
+        }
+    }
+
     private String cleanLine(String rawLine) {
         if (rawLine.length() == 0 || rawLine == null) {
             return null;
@@ -49,7 +60,7 @@ public class Parser {
         return rawLine.split("//")[0].trim().replaceAll(" ", "");
     }
 
-    private void parseCommandType(String cleanLine) {
+    private void parseCommandType() {
         char firstChar = cleanLine.charAt(0);
         if (firstChar == '@') {
             commandType = Command.A_COMMAND;
@@ -63,22 +74,20 @@ public class Parser {
     }
 
     private void parseSymbol() {
-        if (cleanLine != null) {
-            switch (commandType) {
-                case A_COMMAND:
-                    symbol =  cleanLine.substring(1);
-                    cleanLine = null;
-                    break;
-                case L_COMMAND:
-                    symbol = cleanLine.substring(1, cleanLine.length() - 1);
-                    cleanLine = null;
-                    break;
-            }
+
+        switch (commandType) {
+            case A_COMMAND:
+                symbol =  cleanLine.substring(1);
+                break;
+            case L_COMMAND:
+                symbol = cleanLine.substring(1, cleanLine.length() - 1);
+                break;
         }
+
     }
 
     private void parseDest() {
-        if (cleanLine != null && commandType == Command.C_COMMAND) {
+        if (commandType == Command.C_COMMAND) {
             int index = cleanLine.indexOf("=");
             destMnenomic = index != -1 ? cleanLine.split("=")[0] : null;
 
@@ -86,7 +95,7 @@ public class Parser {
     }
 
     private void parseComp() {
-        if (cleanLine != null && commandType == Command.C_COMMAND) {
+        if (commandType == Command.C_COMMAND) {
             if (cleanLine.indexOf("=") != -1) {
                 compMnenomic = cleanLine.split("(.+=)|;")[1];
             } else {
@@ -96,7 +105,7 @@ public class Parser {
     }
 
     private void parseJump() {
-        if (cleanLine != null && commandType == Command.C_COMMAND) {
+        if (commandType == Command.C_COMMAND) {
             int index = cleanLine.indexOf(";");
             jumpMnenomic = index != -1 ? cleanLine.substring(index) : null;
         }
