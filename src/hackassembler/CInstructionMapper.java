@@ -70,5 +70,4 @@ public class CInstructionMapper {
     public String jump(String mnemonic) {
         return jumpCodes.get(mnemonic);
     }
-
 }

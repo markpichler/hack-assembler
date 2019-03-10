@@ -41,6 +41,7 @@ public class Parser {
             rawLine = inputFile.nextLine();
             cleanLine = cleanLine(rawLine);
             parseCommandType();
+            parse();
             switch (commandType) {
                 case A_COMMAND:
                 case C_COMMAND:
@@ -146,7 +147,7 @@ public class Parser {
     private void parseJump() {
         if (commandType == Command.C_COMMAND) {
             int index = cleanLine.indexOf(";");
-            jumpMnemonic = index != -1 ? cleanLine.substring(index) : null;
+            jumpMnemonic = index != -1 ? cleanLine.substring(++index) : null;
         }
     }
 
