@@ -2,6 +2,12 @@ package hackassembler;
 
 import java.util.HashMap;
 
+/**
+ * A symbol table that stores and manages the mappings of predefined symbols,
+ * labels, and variable names.
+ *
+ * @author Mark Pichler
+ */
 public class SymbolTable {
 
     public final String VALID_CHARS_REGEX;
@@ -9,7 +15,7 @@ public class SymbolTable {
 
     public SymbolTable() {
 
-        VALID_CHARS_REGEX = "[_$a-zA-Z][_$\\w]*";
+        VALID_CHARS_REGEX = "[_.$:a-zA-Z][_.$:\\w]*";
         symbolTable = new HashMap<>();
 
         String[] predefinedKeys = {
@@ -28,6 +34,14 @@ public class SymbolTable {
         }
     }
 
+    /**
+     * Adds a new symbol to the symbol table.  Verifies the symbol is valid and
+     * is not already in the table.
+     *
+     * @param symbol the symbol to add
+     * @param address corresponding memory address of symbol
+     * @return true if add, false otherwise.
+     */
     public boolean addEntry(String symbol, int address) {
         if (contains(symbol) || !isValidName(symbol)) {
             return false;
@@ -37,14 +51,32 @@ public class SymbolTable {
         }
     }
 
+    /**
+     * Verifies the presence of the symbol in the table.
+     *
+     * @param symbol symbol to check if present
+     * @return true if present, false otherwise
+     */
     public boolean contains(String symbol) {
         return symbolTable.containsKey(symbol);
     }
 
+    /**
+     * Returns the corresponding memory address of given symbol.
+     *
+     * @param symbol symbol whose address is desired
+     * @return memory address of symbol
+     */
     public int getAddress(String symbol) {
         return symbolTable.getOrDefault(symbol, -1);
     }
 
+    /**
+     * Verifies if a symbol is valid according to Hack specifications.
+     *
+     * @param symbol symbol to verify
+     * @return true if valid, false otherwise
+     */
     private boolean isValidName(String symbol) {
 
         if (symbol != null && symbol.matches(VALID_CHARS_REGEX)) {

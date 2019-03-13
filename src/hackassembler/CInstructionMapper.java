@@ -2,6 +2,12 @@ package hackassembler;
 
 import java.util.HashMap;
 
+/**
+ * A mapper that converts c-instruction mnemonics to their corresponding binary
+ * representations.
+ *
+ * @author Mark Pichler
+ */
 public class CInstructionMapper {
 
     private HashMap<String, String> compCodes;
@@ -59,14 +65,32 @@ public class CInstructionMapper {
         }
     }
 
+    /**
+     * Returns the binary representation of a c-instruction comp mnemonic.
+     *
+     * @param mnemonic comp mnemonic whose binary representation is desired
+     * @return binary representation of mnemonic
+     */
     public String comp(String mnemonic) {
         return compCodes.get(mnemonic);
     }
 
+    /**
+     * Returns the binary representation of a c-instruction dest mnemonic.
+     *
+     * @param mnemonic dest mnemonic whose binary representation is desired
+     * @return binary representation of mnemonic
+     */
     public String dest(String mnemonic) {
         return destCodes.get(mnemonic);
     }
 
+    /**
+     * Returns the binary representation of a c-instruction jump mnemonic.
+     *
+     * @param mnemonic jump mnemonic whose binary representation is desired
+     * @return binary representation of mnemonic
+     */
     public String jump(String mnemonic) {
         return jumpCodes.get(mnemonic);
     }
